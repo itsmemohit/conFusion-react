@@ -30,13 +30,12 @@ class DishDetail extends Component {
     }
 
     renderComments(seldish){
-        let options = { year: 'numeric', month: 'short', day: 'numeric' };
         if (seldish!=null){
             const comm = seldish.comments.map((comment) => {
                 return(
                     <div className="list-unstyled">                
                         <p>{comment.comment}</p>
-                        <p>-- {comment.author}, <span>{new Date(comment.date).toLocaleDateString("en-US",options)}</span></p>
+                <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                     </div>
                 );
             });
@@ -58,12 +57,10 @@ class DishDetail extends Component {
     render() {
          
         return(
-            <div className="row">
+            <div className="container">
                 <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(this.props.seldish)}   
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                   {this.renderComments(this.props.seldish)}   
+                    {this.renderDish(this.props.dish)}   
+                    {this.renderComments(this.props.dish)}   
                 </div>
             </div>
             
