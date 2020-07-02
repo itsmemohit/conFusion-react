@@ -6,12 +6,12 @@ function RenderMenuItem({ dish, onClick }) {
         <Card onClick={()=> onClick(dish.id)}>
             <CardImg width="100%" src={dish.image} alt={dish.name} />
             <CardImgOverlay>
-                <CardTitle>{dish.name}</CardTitle>
-                        
+                <CardTitle>{dish.name}</CardTitle>                       
             </CardImgOverlay>
         </Card>
     );
-}   
+}
+   
     const Menu = (props) => {
         const menu=props.dishes.map((dish)=>{
             return(
