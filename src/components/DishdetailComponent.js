@@ -3,7 +3,8 @@ import { Card, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem,
     Button, Modal, ModalHeader, ModalBody, Label, Col, Row } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
-import { Loading } from './LoadingComponent'
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -110,7 +111,7 @@ function ImageDish({selDish}) {
     return(
         <div>
             <Card>
-    <           CardImg width="100%" src={selDish.image} alt={selDish.name} />
+    <           CardImg width="100%" src={baseUrl + selDish.image} alt={selDish.name} />
                 <CardTitle><strong>{selDish.name}</strong></CardTitle>
                 <CardText>{selDish.description}</CardText>                                
             </Card>
@@ -165,7 +166,6 @@ const DishDetail = (props) => {
             <div className = 'container'>
                 <div className="row ">
                     <Breadcrumb>
-                    <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                     <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
                     <BreadcrumbItem active>{props.selDish.name}</BreadcrumbItem>
                     </Breadcrumb>
