@@ -34,7 +34,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
     
     render() {
@@ -55,11 +55,11 @@ class CommentForm extends Component {
                             <Col md={12}>
                                 <Control.select model=".rating" id="rating" name="rating"                                    
                                     className="form-control">  
-                                    <option>5</option>
-                                    <option>4</option>
-                                    <option>3</option>
-                                    <option>2</option>
                                     <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
                                 </Control.select>                                     
                             </Col>
                         </Row>
@@ -120,7 +120,7 @@ function ImageDish({selDish}) {
     );
 }
 
-function CommentDish({comments, addComment, dishId}) {
+function CommentDish({comments, postComment, dishId}) {
 
     const comDish = comments.map((comm) => {
         return (               
@@ -135,7 +135,7 @@ function CommentDish({comments, addComment, dishId}) {
         <div>
             <h5>Comments:</h5>
             {comDish} 
-            <CommentForm dishId={dishId} addComment={addComment} />      
+            <CommentForm dishId={dishId} postComment={postComment} />      
         </div>
         
     );
@@ -180,7 +180,7 @@ const DishDetail = (props) => {
                     </div>
                     <div  className="col-12 col-md-5 m-1">                        
                         <CommentDish comments={props.comments}
-                            addComment={props.addComment}
+                            postComment={props.postComment}
                             dishId={props.selDish.id}
                         />
                     </div>                                                               
