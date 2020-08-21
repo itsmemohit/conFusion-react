@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { actions } from 'react-redux-form';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import About from './AboutComponent';
@@ -9,7 +8,9 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchDishes,fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 const mapStateToProps = state => {
@@ -78,14 +79,18 @@ class Main extends Component {
      return (
        <div className="App">
             <Header />
-            <Switch>
-              <Route path="/home" component={HomePage} />
-              <Route exact path="/aboutus" component={() => <About leaders={this.props.leaders}/>} />
-              <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
-              <Route path="/menu/:dishId" component={DishWithId} />
-              <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-              <Redirect to="/home" />
-            </Switch>              
+            <TransitionGroup>
+              <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+                <Switch>
+                  <Route path="/home" component={HomePage} />
+                  <Route exact path="/aboutus" component={() => <About leaders={this.props.leaders}/>} />
+                  <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
+                  <Route path="/menu/:dishId" component={DishWithId} />
+                  <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                  <Redirect to="/home" />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>              
             <Footer />
        </div>
      )
