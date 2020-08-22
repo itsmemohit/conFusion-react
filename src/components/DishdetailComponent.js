@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, 
-    Button, Modal, ModalHeader, ModalBody, Label, Col, Row } from 'reactstrap';
+    Button, Modal, ModalHeader, ModalBody, Label, Col, Row, CardBody } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform , Fade, Stagger} from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -110,11 +111,18 @@ function ImageDish({selDish}) {
     console.log('ImageDish function invoked: ', selDish);
     return(
         <div>
-            <Card>
-    <           CardImg width="100%" src={baseUrl + selDish.image} alt={selDish.name} />
-                <CardTitle><strong>{selDish.name}</strong></CardTitle>
-                <CardText>{selDish.description}</CardText>                                
-            </Card>
+            <FadeTransform in 
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50)'
+            }}>
+                <Card>
+                    <CardImg width="100%" src={baseUrl + selDish.image} alt={selDish.name} />
+                    <CardBody>
+                        <CardTitle><strong>{selDish.name}</strong></CardTitle>
+                        <CardText>{selDish.description}</CardText>                                
+                    </CardBody>
+                </Card>
+            </FadeTransform>
             
         </div>
     );
@@ -123,12 +131,16 @@ function ImageDish({selDish}) {
 function CommentDish({comments, postComment, dishId}) {
 
     const comDish = comments.map((comm) => {
-        return (               
-                <div key={comm.id} className="col-12 col-md-12 m-1">
-                    <h6>{comm.comment}</h6>
-                    <p>--{comm.author}, {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comm.date)))}</p>
-                    <hr />                    
-                </div>
+        return (    
+            <Stagger in>
+                <Fade in>
+                    <div key={comm.id} className="col-12 col-md-12 m-1">
+                        <h6>{comm.comment}</h6>
+                        <p>--{comm.author}, {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comm.date)))}</p>
+                        <hr />                    
+                    </div>
+                </Fade>
+            </Stagger>
         );
     });
     return (
