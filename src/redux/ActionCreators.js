@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { DISHES } from '../shared/dishes';
 import { baseUrl } from '../shared/baseUrl';
 
 export const addComment = (comment) => ({
@@ -225,7 +224,7 @@ export const postFeedback = (firstname, lastname, telnum, email, agree, contactT
                 throw errmess;
             })
         .then(response => response.json())
-        .then(feedback => dispatch(addFeedback(feedback)), alert('Thank you for your feedback!\n' + 'First Name: ' + firstname +
+        .then(feedback => dispatch(addFeedback(feedback)), alert('Thank you for your feedback!\n'), alert('First Name: ' + firstname +
             ', Last Name: ' + lastname + ', Telnum: ' + telnum + ', Email: ' + email + ', Agree: ' + agree +
             ', Contact Type: ' + contactType + ', Message: ' + message))
         .catch(error => {
